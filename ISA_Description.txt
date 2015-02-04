@@ -1,0 +1,77 @@
+16 bit ISA with 16 registers
+
+Registers set by convention:
+  Register 0 will equal zero, this is not required by hardware, and can be changed as needed
+
+Registers set by hardware:
+  Register 15 is the program counter (pc)
+
+Registers set by both:
+  Register 14 is the conditional operation register
+    whenever an operation is conditionally called:
+  Register 14 is checked for a "less than or equal to zero" condition
+    For code with no conditional operations, R14 can be used as a general purpose Register
+
+Command Syntax as determined for 16 bits:
+
+Bits are big-endian (biggest at left)
+  And configured b15:b0
+
+All commands have a conditional operator, b15
+  when b0 == 0
+    command runs as intended
+  when b0 == 1
+    if r14 <= 0
+      command runs as intended
+    else
+      do nothing
+
+There are Four syntaxes of operations:
+
+Three Operand Operations
+  when b14:b13 == 01
+    if b12 == 0
+      add3
+    if b12 == 1
+      sub3
+
+Two Operand Operations
+  if b14:b12 == 001
+    loadHex
+  if b14:b12 == 100
+    circularShiftLeft
+  if b14:b12 == 101
+    circularShiftRight
+  if b14:b12 == 110
+    Read from Memory
+  if b14:b12 == 111
+    Write to Memory
+
+Miscellania
+if b14:b12 == 000
+  if b4:b1 == 001
+    signedArithmetic
+  if b4:b1 == 010
+    mult2
+  if b4:b1 == 011
+    divide2
+  if b4:b1 == 100
+    move
+  if b4:b1 == 101
+    maskedOR
+  if b4:b1 == 110
+    maskedAND  
+  if b4:b1 == 111
+    maskedNOT
+
+RESERVED
+if b14:b12 == 000 and b4:b1 == 000
+  all available permutations are reserved
+  At time of writing, intention is 16.x s.t. rsvd cue into next instruction's significance
+  intended inclusions are
+    floating point arithmetic
+    double prec floation point arithmetic
+    32 bit load hex
+    vector operations
+    64 bit math
+    128 bit math
