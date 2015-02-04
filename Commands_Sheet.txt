@@ -1,0 +1,58 @@
+This text file represents an intial documentation at isa operations
+
+Operations Include:
+  loadHex
+  3add
+  3sub
+  circularShiftLeft
+  circularShiftRight
+  readFromMemory
+  writeToMemory
+  2unsignedAdd
+  2unsignedSub
+  2multiply
+  2divide
+  move
+  2or
+  ceil
+  2and
+  floor
+  2not
+  RSVD
+  
+loadHex
+  m-001-cccc-hhhh-hhhh
+3add
+  m-010-cccc-aaaa-bbbb
+3sub
+  m-011-cccc-aaaa-bbbb
+circularShiftLeft
+  m-100-cccc-aaaa-hhhh
+circularShiftRight
+  m-101-cccc-aaaa-hhhh
+readFromMemory
+  m-110-cccc-aaaa-hhhh
+writeToMemory
+  m-111-cccc-aaaa-hhhh
+2unsignedAdd
+  m-000-cccc-aaaa-0010
+2unsignedSub
+  m-000-cccc-aaaa-0011
+2multiply
+  m-000-cccc-aaaa-010s
+2divide
+  m-000-cccc-aaaa-011s
+move
+  m-000-cccc-aaaa-100u
+2or
+  m-000-cccc-aaaa-1010
+ceil
+  m-000-cccc-aaaa-1011
+2and
+  m-000-cccc-aaaa-1100
+floor
+  m-000-cccc-aaaa-1101
+2not
+  m-000-cccc-aaaa-111m
+RSVD
+  m-000-XXXX-XXXX-000X
