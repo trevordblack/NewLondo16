@@ -58,11 +58,11 @@ if b14:b12 == 000
   if b4:b1 == 100
     move
   if b4:b1 == 101
-    maskedOR
+    OR
   if b4:b1 == 110
-    maskedAND  
+    AND  
   if b4:b1 == 111
-    maskedNOT
+    NOT
 
 RESERVED
 if b14:b12 == 000 and b4:b1 == 000
