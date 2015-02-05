@@ -13,11 +13,12 @@ Operations Include:
   2multiply
   2divide
   move
-  2or
-  ceil
-  2and
-  floor
-  2not
+  2OR
+  2OR1NOT
+  2AND
+  2AND1NOT
+  NOT
+  2XNOR
   RSVD
   
 loadHex
@@ -44,15 +45,17 @@ writeToMemory
   m-000-cccc-aaaa-011s
 move
   m-000-cccc-aaaa-100u
-2or
+2OR
   m-000-cccc-aaaa-1010
-ceil
+2OR1NOT
   m-000-cccc-aaaa-1011
-2and
+2AND
   m-000-cccc-aaaa-1100
-floor
+2AND1NOT
   m-000-cccc-aaaa-1101
-2not
-  m-000-cccc-aaaa-111m
+NOT
+  m-000-cccc-aaaa-1110
+2XNOR
+  m-000-cccc-aaaa-1111
 RSVD
   m-000-XXXX-XXXX-000X
