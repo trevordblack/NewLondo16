@@ -1,0 +1,73 @@
+Operations Include:
+  loadHex
+  3add
+  3sub
+  circularShiftLeft
+  circularShiftRight
+  readFromMemory
+  writeToMemory
+  2unsignedAdd
+  2unsignedSub
+  2multiply
+  2divide
+  move
+  2OR
+  2OR1NOT
+  2AND
+  2AND1NOT
+  NOT
+  2XNOR
+  RSVD
+  
+loadHex
+  m-001-cccc-hhhh-hhhh
+3add
+  m-010-cccc-aaaa-bbbb
+3sub
+  m-011-cccc-aaaa-bbbb
+circularShiftLeft
+  m-100-cccc-aaaa-hhhh
+circularShiftRight
+  m-101-cccc-aaaa-hhhh
+readFromMemory
+  m-110-cccc-aaaa-hhhh
+writeToMemory
+  m-111-cccc-aaaa-hhhh
+2unsignedAdd
+  m-000-cccc-aaaa-0010
+2unsignedSub
+  m-000-cccc-aaaa-0011
+2multiply
+  m-000-cccc-aaaa-010s
+2divide
+  m-000-cccc-aaaa-011s
+move
+  m-000-cccc-aaaa-100u
+2OR
+  m-000-cccc-aaaa-1010
+2OR1NOT
+  m-000-cccc-aaaa-1011
+2AND
+  m-000-cccc-aaaa-1100
+2AND1NOT
+  m-000-cccc-aaaa-1101
+NOT
+  m-000-cccc-aaaa-1110
+2XNOR
+  m-000-cccc-aaaa-1111
+RSVD
+  m-000-XXXX-XXXX-000X
+  
+Native Commands:
+
+
+
+Synthesized Commands:
+
+
+
+Redundant Commands:
+
+
+
+
