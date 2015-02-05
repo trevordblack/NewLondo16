@@ -65,20 +65,33 @@ For all command syntax:
 
 Native Commands:
 
-load
+load 8 bit
   Descriptor:
-    Load an 8 bit value into a Register
+    Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, dne all other bits (b31:b8)
   Math Formula:
-    C = 0xFF
+    C = C[31:8] , 0xFF 
+  Syntax:
+    load c 0xFF
   Syntaxes Supported:
-    load rCC 0xFF
-    load 255
-    load 
+    load c 0xFF
+    load c 255
+    load c 11111111b
 
 
 Synthesized Commands:
 
-
+load 32 bit
+  Descriptor:
+    Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
+  Real Math Formula:
+    C = 0x1234_CDEF
+  Synthesized Math Formula:
+    C = 0x12
+    C = C << 2
+    B = 
+  Synthesis (0):
+    load c 0x12
+    csl 
 
 Redundant Commands:
 
