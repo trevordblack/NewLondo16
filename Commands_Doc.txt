@@ -57,9 +57,23 @@ NOT
   m-000-cccc-aaaa-1111
 RSVD
   m-000-XXXX-XXXX-000X
-  
+
+For all command syntax:
+  uppercase and lowercase are accepted everywhere, consistency in command
+    LOAD R01 0xFF
+    load r01 0xff
+
 Native Commands:
 
+load
+  Descriptor:
+    Load an 8 bit value into a Register
+  Math Formula:
+    C = 0xFF
+  Syntaxes Supported:
+    load rCC 0xFF
+    load 255
+    load 
 
 
 Synthesized Commands:
