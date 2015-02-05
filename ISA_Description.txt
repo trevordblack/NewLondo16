@@ -5,6 +5,7 @@ Registers set by convention:
 
 Registers set by hardware:
   Register 15 is the program counter (pc)
+  Register 13 is the stack pointer (sp)
 
 Registers set by both:
   Register 14 is the conditional operation register
@@ -31,9 +32,9 @@ There are Four syntaxes of operations:
 Three Operand Operations
   when b14:b13 == 01
     if b12 == 0
-      add3
+      3add
     if b12 == 1
-      sub3
+      3sub
 
 Two Operand Operations
   if b14:b12 == 001
@@ -43,26 +44,26 @@ Two Operand Operations
   if b14:b12 == 101
     circularShiftRight
   if b14:b12 == 110
-    Read from Memory
+    ReadfromMemory
   if b14:b12 == 111
-    Write to Memory
+    WritetoMemory
 
 Miscellania
 if b14:b12 == 000
   if b4:b1 == 001
     signedArithmetic
   if b4:b1 == 010
-    mult2
+    2mult
   if b4:b1 == 011
-    divide2
+    2divide
   if b4:b1 == 100
     move
   if b4:b1 == 101
-    OR
+    2OR
   if b4:b1 == 110
-    AND  
+    2AND  
   if b4:b1 == 111
-    NOT
+    2NOT
 
 RESERVED
 if b14:b12 == 000 and b4:b1 == 000
@@ -70,8 +71,12 @@ if b14:b12 == 000 and b4:b1 == 000
   At time of writing, intention is 16.x s.t. rsvd cue into next instruction's significance
   intended inclusions are
     floating point arithmetic
-    double prec floation point arithmetic
+    double prec fp arithmetic
+    arbitrary prec fp arithmetic
     32 bit load hex
-    vector operations
+    arbitrary bit load hex
     64 bit math
     128 bit math
+    repetitive ops (do next op x times moving sp n each time)
+    vector operations
+
