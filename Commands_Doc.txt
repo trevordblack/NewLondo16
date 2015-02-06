@@ -1,9 +1,3 @@
-Operations Include:
-  loadHex
-  3add
-  3sub
-  arithmeticShiftLeft
-  arithmeticShiftRight
   readFromMemory
   writeToMemory
   2unsignedAdd
@@ -19,16 +13,6 @@ Operations Include:
   2XNOR
   RSVD
   
-loadHex
-  m-001-cccc-hhhh-hhhh
-3add
-  m-010-cccc-aaaa-bbbb
-3sub
-  m-011-cccc-aaaa-bbbb
-arithmeticShiftLeft
-  m-100-cccc-aaaa-hhhh
-arithmeticShiftRight
-  m-101-cccc-aaaa-hhhh
 readFromMemory
   m-110-cccc-aaaa-hhhh
 writeToMemory
@@ -69,13 +53,15 @@ load 8 bit
   Descriptor:
     Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, dne all other bits (b31:b8)
   Math Formula:
-    C = 0xFF 
+    C = h 
   Syntax:
     load c 0xFF
   Syntaxes Supported:
     load c 0xFF
     load c 255
     load c 11111111b
+  Binary:
+    m-001-cccc-hhhh-hhhh
     
 Signed Addition with 3 operators
   Descriptor:
@@ -84,6 +70,8 @@ Signed Addition with 3 operators
     C = A + B
   Syntax:
     add c a b
+  Binary:
+    m-010-cccc-aaaa-bbbb
 
 Signed Subtraction with 3 operators
   Descriptor:
@@ -92,12 +80,37 @@ Signed Subtraction with 3 operators
     C = A - B
   Syntax:
     sub c a b
-
+  Binary:
+    m-011-cccc-aaaa-bbbb
+    
 Arithmetic Shift Left
   Descriptor:
     Arithmetically shift a register value to the left. 
-    Amount to shift is determined as unsigned sum of the second register value, hex value, and an offset of 0
-  
+    Amount to shift is determined by a hex value and a second register value.
+    When second register value is 0, shift the amount of hex value + 1, this enables 16 bit shift in a single command.
+    when register value is not 0, shift the sum of register value and hex value 
+  Math Formula:
+    AMT = (A==0) ? (h+1) : (h+A)
+    C = C << AMT
+  Syntax:
+    asl c a 0xF
+  Binary:
+    m-100-cccc-aaaa-hhhh
+
+Arithmetic Shift Right
+  Descriptor:
+    Arithmetically shift a register value to the right. 
+    Amount to shift is determined by a hex value and a second register value.
+    When second register value is 0, shift the amount of hex value + 1, this enables 16 bit shift in a single command.
+    when register value is not 0, shift the sum of register value and hex value   
+  Math Formula:
+    AMT = (A==0) ? (h+1) : (h+A)
+    C = ( C[31:AMT] ) | ( C >> AMT )
+  Syntax:
+    asr c a 0xF  
+  Binary:
+    m-101-cccc-aaaa-hhhh
+    
     
 SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
