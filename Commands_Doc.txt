@@ -114,6 +114,16 @@ Arithmetic Shift Right
     
 SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
+load 16 bit:
+  Descriptor:
+    Loads a 16 bit value into a Register. Zeros top two bytes. Sets bytes to hex in big-endian fashion
+  Real Math Formula:
+    C = 0x0000_1234
+  Synthesized Math Formula:
+  
+  Synthesis (0):
+    
+
 load 32 bit
   Descriptor:
     Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
