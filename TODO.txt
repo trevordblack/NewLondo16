@@ -5,6 +5,6 @@
 3. Switch circular switch right with:
       a. Arithmetic Shift Left
       b. Logical Shift Left
-4. Create a better means of producing masks
+5. Create a better means of producing masks
       a. You can load a 32 bit HEX
       b. But when the shift amount is determined by a register, the mask currently takes a loop to make
