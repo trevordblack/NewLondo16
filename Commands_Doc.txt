@@ -1,8 +1,3 @@
-  2unsignedAdd
-  2unsignedSub
-  2multiply
-  2divide
-  move
   2OR
   2OR1NOT
   2AND
@@ -11,16 +6,6 @@
   2XNOR
   RSVD
   
-2unsignedAdd
-  m-000-cccc-aaaa-0010
-2unsignedSub
-  m-000-cccc-aaaa-0011
-2multiply
-  m-000-cccc-aaaa-010s
-2divide
-  m-000-cccc-aaaa-011s
-move
-  m-000-cccc-aaaa-100u
 2OR
   m-000-cccc-aaaa-1010
 2OR1NOT
@@ -125,8 +110,87 @@ Write to Memory
   Binary:
     m-111-cccc-aaaa-hhhh
 
+Unsigned Addition with 2 operators
+  Descriptor:
+    Set a register to the unsigned sum of that register and another register
+  Math Formula:
+    C = C + A
+  Syntax:
+    uadd c a
+  Binary:
+    m-000-cccc-aaaa-0010
 
+Unsigned Subtraction with 2 operators
+  Descriptor:
+    Set a register to the unsigned difference of that register and another register
+  Math Formula:
+    C = C - A
+  Syntax:
+    usub c a
+  Binary:
+    m-000-cccc-aaaa-0011
 
+Signed Multiplication with 2 operators
+  Descriptor:
+    Set a register to the signed multiplication of that register and another register
+  Math Formula:
+    C = C * A
+  Syntax:
+    mult c a
+  Binary:
+    m-000-cccc-aaaa-0100    
+
+Unsigned Multiplication with 2 operators
+  Descriptor:
+    Set a register to the unsigned multiplication of that register and another register
+  Math Formula:
+    C = C * A
+  Syntax:
+    umult c a
+  Binary:
+    m-000-cccc-aaaa-0101
+
+Signed Division with 2 operators
+  Descriptor:
+    Set a register to the signed division of that register and another register
+  Math Formula:
+    C = C / A
+  Syntax:
+    div c a
+  Binary:
+    m-000-cccc-aaaa-0110    
+
+Unsigned Division with 2 operators
+  Descriptor:
+    Set a register to the unsigned division of that register and another register
+  Math Formula:
+    C = C / A
+  Syntax:
+    udiv c a
+  Binary:
+    m-000-cccc-aaaa-0111
+
+Move
+  Descriptor:
+    Sets all 32 bits of a register to the 32 bit value of another register
+  Math Formula:
+    C = A
+  Syntax
+    move C A
+  Binary:
+    m-000-cccc-aaaa-1000
+    
+Upper Move
+  Descriptor:
+    Zeros out bottom 16 bits and sets the top 16 bits of one register to the bottom 16 bit value of another register.
+    Functions as a very fast shift to the left 16. Should always be chosen over asl 16
+  Math Formula:
+    C = A << 16
+  Syntax
+    uppermove C A
+  Binary:
+    m-000-cccc-aaaa-1001
+   
 SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
 load 16 bit:
@@ -134,20 +198,29 @@ load 16 bit:
     Loads a 16 bit value into a Register. Zeros top two bytes. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x0000_1234
-  Synthesized Math Formula:
+  Synthesized Math Formula (0):
+    C = 0x12
+    C = C << 8
+    A = 0x34
+    C = C|A
+  Synthesized Math Formula (1):
+    # if needed zero out C
+    C = 0x12
+    C = C << 8
+    C load 0x34
+  Synthesis (0) with load zeroing out all others:
+  Synthesis (1) with load only changing b7:b0 :
   
-  Synthesis (0):
-    
 
 load 32 bit
   Descriptor:
     Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x1234_CDEF
-  Synthesized Math Formula:
-    C = 0x12
-    C = C << 2
-    B = 
+  Synthesized Math Formula (0):
+    
+  Synthesized Math Formula (1):
+    
   Synthesis (0):
     load c 0x12
     csl 
@@ -170,7 +243,6 @@ Logical Shift Right
   Synthesized Math Formula:
     
   Synthesis:  
-
 
 
 Jump Forward
