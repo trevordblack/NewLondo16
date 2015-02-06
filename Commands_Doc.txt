@@ -69,15 +69,32 @@ load 8 bit
   Descriptor:
     Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, dne all other bits (b31:b8)
   Math Formula:
-    C = C[31:8] , 0xFF 
+    C = 0xFF 
   Syntax:
     load c 0xFF
   Syntaxes Supported:
     load c 0xFF
     load c 255
     load c 11111111b
+    
+Signed Addition with 3 operators
+  Descriptor:
+    Set a third register to the signed sum of two other registers
+  Math Formula:
+    C = A + B
+  Syntax:
+    add c a b
 
+Signed Subtraction with 3 operators
+  Descriptor:
+    Set a third register to the signed difference of two other registers
+  Math Formula:
+    C = A - B
+  Syntax:
+    sub c a b
 
+Circular Shift Left 
+    
 Synthesized Commands:
 
 load 32 bit
@@ -92,7 +109,17 @@ load 32 bit
   Synthesis (0):
     load c 0x12
     csl 
-
+    
+Arithmetic Shift Left
+  Descriptor:
+    Arithmetically shift a register to the left
+  Real Math Formula:
+    C = C << A
+  Synthesized Math Formula:
+    
+  Synthesis (0):
+    HOLY SHIT THIS IS COMPLICATED
+  
 Redundant Commands:
 
 
