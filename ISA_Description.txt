@@ -40,9 +40,9 @@ Two Operand Operations
   if b14:b12 == 001
     loadHex
   if b14:b12 == 100
-    circularShiftLeft
+    arithmeticShiftLeft
   if b14:b12 == 101
-    circularShiftRight
+    arithmeticShiftRight
   if b14:b12 == 110
     ReadfromMemory
   if b14:b12 == 111
