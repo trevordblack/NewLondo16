@@ -1,16 +1,19 @@
-16 bit ISA with 16 registers
+Adaptive Doubly Reduced Instruction Set Computing (AD-RISC)
+
+32 bit ISA with 16 registers and 16 length Instruction "words"
 
 Registers set by convention:
-  Register 0 will equal zero, this is not required by hardware, and can be changed as needed
-
+  Register 00 will equal zero, this is not required by hardware, and can be changed as needed
+  Register 13 is the stack pointer (sp)
+  Register 12 is the "jump and link" register (jr), for returns from function calls
+  
 Registers set by hardware:
   Register 15 is the program counter (pc)
-  Register 13 is the stack pointer (sp)
 
 Registers set by both:
   Register 14 is the conditional operation register
-    whenever an operation is conditionally called:
-  Register 14 is checked for a "less than or equal to zero" condition
+    Whenever an operation is conditionally called:
+    Register 14 is checked for a "less than or equal to zero" condition
     For code with no conditional operations, R14 can be used as a general purpose Register
 
 Command Syntax as determined for 16 bits:
@@ -22,7 +25,7 @@ All commands have a conditional operator, b15
   when b0 == 0
     command runs as intended
   when b0 == 1
-    if r14 <= 0
+    if R14 <= 0
       command runs as intended
     else
       do nothing
@@ -66,6 +69,7 @@ if b14:b12 == 000
     2NOT
 
 RESERVED
+The reserved op call is also conditional based on b15, less-than-equal zero of R14
 if b14:b12 == 000 and b4:b1 == 000
   all available permutations are reserved
   At time of writing, intention is 16.x s.t. rsvd cue into next instruction's significance
@@ -75,8 +79,12 @@ if b14:b12 == 000 and b4:b1 == 000
     arbitrary prec fp arithmetic
     32 bit load hex
     arbitrary bit load hex
-    64 bit math
-    128 bit math
-    repetitive ops (do next op x times moving sp n each time)
+    64 bit instructions
+    repetitive ops (e.g. do next op x times moving sp n each time)
     vector operations
-
+    change conditional from lez to ez, gez, nez, etc.
+  additionally an op could be sent to "turn on" and "turn off" a specific functional unit
+    Such as the decode unit to begin CISC style instructions, or vector, or fp, etc.
+    Allowing for asm portability (but not binary portability) between CPUs of different complexity
+    This also enables very reduced power consumption, as decode is single stage for D-RISC
+This could be percieved as both a RISC and CISC style isa with a specific op for the switch
