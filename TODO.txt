@@ -1,3 +1,4 @@
-1.  Does load 
-      a. zero out bits b31:b8 OR
-      b. do nothing to bits b31:b8
+1.  Decide if load 
+      a. zeroes out bits b31:b8 OR
+      b. does nothing to bits b31:b8
+2. How to do arithmetic shift
