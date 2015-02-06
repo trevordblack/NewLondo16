@@ -1,5 +1,3 @@
-  readFromMemory
-  writeToMemory
   2unsignedAdd
   2unsignedSub
   2multiply
@@ -13,10 +11,6 @@
   2XNOR
   RSVD
   
-readFromMemory
-  m-110-cccc-aaaa-hhhh
-writeToMemory
-  m-111-cccc-aaaa-hhhh
 2unsignedAdd
   m-000-cccc-aaaa-0010
 2unsignedSub
@@ -110,8 +104,29 @@ Arithmetic Shift Right
     asr c a 0xF  
   Binary:
     m-101-cccc-aaaa-hhhh
-    
-    
+
+Read from Memory
+  Descriptor:
+    Read value from memory address to register with the passed hex offset. By convention, A is the sp
+  Math Formula:
+    C = M[A + h]
+  Syntax:
+    read C M[A] h
+  Binary:
+    m-110-cccc-aaaa-hhhh  
+
+Write to Memory
+  Descriptor:
+    Write a register value to a memory address with the passed hex offset. By convention, A is the sp
+  Math Formula:
+    M[A + h] = C
+  Syntax:
+    write C M[A] h
+  Binary:
+    m-111-cccc-aaaa-hhhh
+
+
+
 SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
 load 16 bit:
@@ -155,7 +170,15 @@ Logical Shift Right
   Synthesized Math Formula:
     
   Synthesis:  
-  
+
+
+
+Jump Forward
+
+Jump Backward
+
+Conditional Branch
+
 REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
 
