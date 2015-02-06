@@ -2,3 +2,4 @@
       a. zeroes out bits b31:b8 OR
       b. does nothing to bits b31:b8
 2. How to do arithmetic shift
+3. Create a better means of producing masks
