@@ -145,6 +145,16 @@ Logical Shift Left
   Synthesized Math Formula:
     C = C[30:0], 0
   Synthesis:
+    asl c a 0xF
+    
+Logical Shift Right
+ Descriptor:
+    Logically shift a register to the right, placing zeros into the left-most bits
+  Real Math Formula:
+    C = C[31-AMT:AMT]
+  Synthesized Math Formula:
+    
+  Synthesis:  
   
 REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
