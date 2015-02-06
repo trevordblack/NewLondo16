@@ -2,8 +2,8 @@ Operations Include:
   loadHex
   3add
   3sub
-  circularShiftLeft
-  circularShiftRight
+  arithmeticShiftLeft
+  arithmeticShiftRight
   readFromMemory
   writeToMemory
   2unsignedAdd
@@ -25,9 +25,9 @@ loadHex
   m-010-cccc-aaaa-bbbb
 3sub
   m-011-cccc-aaaa-bbbb
-circularShiftLeft
+arithmeticShiftLeft
   m-100-cccc-aaaa-hhhh
-circularShiftRight
+arithmeticShiftRight
   m-101-cccc-aaaa-hhhh
 readFromMemory
   m-110-cccc-aaaa-hhhh
@@ -63,7 +63,7 @@ For all command syntax:
     LOAD R01 0xFF
     load r01 0xff
 
-Native Commands:
+NATIVE COMMANDS: ---------------------------------------------------------------------------------------
 
 load 8 bit
   Descriptor:
@@ -93,9 +93,13 @@ Signed Subtraction with 3 operators
   Syntax:
     sub c a b
 
-Circular Shift Left 
+Arithmetic Shift Left
+  Descriptor:
+    Arithmetically shift a register value to the left. 
+    Amount to shift is determined as unsigned sum of the second register value, hex value, and an offset of 0
+  
     
-Synthesized Commands:
+SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
 load 32 bit
   Descriptor:
@@ -110,17 +114,16 @@ load 32 bit
     load c 0x12
     csl 
     
-Arithmetic Shift Left
+Logical Shift Left
   Descriptor:
-    Arithmetically shift a register to the left
+    Logically shift a register to the left, functionally identical to arithmetic shift left
   Real Math Formula:
-    C = C << A
+    C = C[30:0], 0
   Synthesized Math Formula:
-    
-  Synthesis (0):
-    HOLY SHIT THIS IS COMPLICATED
+    C = C[30:0], 0
+  Synthesis:
   
-Redundant Commands:
+REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
 
 
