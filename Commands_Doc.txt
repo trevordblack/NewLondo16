@@ -30,7 +30,7 @@ NATIVE COMMANDS: ---------------------------------------------------------------
 
 load 8 bit
   Descriptor:
-    Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, dne all other bits (b31:b8)
+    Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, zeros all other bits (b31:b8)
   Math Formula:
     C = h 
   Syntax:
@@ -198,32 +198,25 @@ load 16 bit:
     Loads a 16 bit value into a Register. Zeros top two bytes. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x0000_1234
-  Synthesized Math Formula (0):
+  Synthesized Math Formula:
     C = 0x12
     C = C << 8
     A = 0x34
     C = C|A
-  Synthesized Math Formula (1):
-    # if needed zero out C
-    C = 0x12
-    C = C << 8
-    C load 0x34
-  Synthesis (0) with load zeroing out all others:
-  Synthesis (1) with load only changing b7:b0 :
-  
+  Synthesis:
+    load C 0x12
+    load A 0x34
+    asl C B 0x7 #Where B equals 0, asl C B 8
+    or C A
 
 load 32 bit
   Descriptor:
     Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x1234_CDEF
-  Synthesized Math Formula (0):
+  Synthesized Math Formula:
     
-  Synthesized Math Formula (1):
-    
-  Synthesis (0):
-    load c 0x12
-    csl 
+  Synthesis:
     
 Logical Shift Left
   Descriptor:
