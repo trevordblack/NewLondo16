@@ -1,6 +1,3 @@
-1.  Decide if load 
-      a. zeroes out bits b31:b8 OR
-      b. does nothing to bits b31:b8
 2. Create a better means of producing masks
       a. You can load a 32 bit HEX
       b. But when the shift amount is determined by a register, the mask currently takes a loop to make
