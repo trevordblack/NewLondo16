@@ -4,6 +4,5 @@
 2. Create a better means of producing masks
       a. You can load a 32 bit HEX
       b. But when the shift amount is determined by a register, the mask currently takes a loop to make
-3. Finish the synthesized procedure for loading a 32 bit hex
-4. Finish the synthesized procedure for loading a 16 bit hex
-5. Finish the synthesized procedure for logical shift left
+3. Finish all synthesized procedures
+4. Create a RSVD function call for a blocks
