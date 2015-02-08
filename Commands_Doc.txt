@@ -2,6 +2,7 @@ For all command syntax:
   uppercase and lowercase are accepted everywhere, consistency in command
     LOAD R01 0xFF
     load r01 0xff
+  underscores are neglected
 
 NATIVE COMMANDS: ---------------------------------------------------------------------------------------
 
@@ -257,9 +258,38 @@ load 32 bit
     Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x1234_CDEF
-  Synthesized Math Formula:
+  Synthesized Math Formula (0):
+    C = 0x12
+    A = 0x34
+    C = C << 8
+    C = C|A
+    C = C << 16
+    A = 0xCD
+    A = A << 8
+    B = 0xEF
+    B = B|A
+    C = C|B
+  Synthesis (0):
+    load C 0x12
+    load A 0x34
+    asl C D 0x7 #Where D equals 0, asl C B 8
+    or C A
+    uppermove C C
+    load A 0xCD
+    asl A D 0x7
     
-  Synthesis:
+  Synthesized Math Formula (1):    
+    C = 0x12
+    C = C << 8
+    A = 0x34
+    C = C|A
+    C = C << 8
+    A = 0xCD
+    C = C|A
+    C = C << 8
+    A = 0xEF
+    C = C|A    
+
     
 Logical Shift Left
   Descriptor:
@@ -280,12 +310,45 @@ Logical Shift Right
     
   Synthesis:  
 
+XOR
+  Descriptor:
+    XORs two register values
+  Real Math Formula:
+    C = C^A
+  Synthesized Math Formula:
+    C = ~(C^A)
+    C = ~C
+  Synthesis:
+    xnor C A
+    not C C
 
 Jump Forward
+  Descriptor:
+    unconditional jump forward
+    Set hex to jump amount from uadd with offset of -1
+    the PC will push forward by two bytes at the end of the op. Offset hex by -1
+    
+  Synthesis:
+    load32 A 0x1234_CDEF
+    uadd r15 A
 
 Jump Backward
-
-Conditional Branch
+  Descriptor:
+    unconditional jump backward
+    Set hex to jump amount from uadd with offset of -1
+    the PC will push forward by two bytes at the end of the op. Offset hex by -1
+  Synthesis:
+    load32 A 0x1234_CDEF
+    usub r15 A
+  
+Conditional Less than or Equal to Zero Branch
+  Descriptor:
+    Conditional Branch Forward if r14 <= 0
+    Set hex to jump amount from move with offset of -1
+    the PC will push forward by two bytes at the end of the op. Offset hex by -1
+  Synthesis:
+    load32 A 0x1234_CDEF
+    cond_move C A
 
 REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
