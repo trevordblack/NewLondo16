@@ -1,5 +1,6 @@
-2. Create a better means of producing masks
+1. Create a better means of producing masks
       a. You can load a 32 bit HEX
       b. But when the shift amount is determined by a register, the mask currently takes a loop to make
-3. Finish all synthesized procedures
-4. Create a RSVD function call for all blocks
+2. Finish all synthesized procedures
+3. Create a RSVD function call for all blocks
+4. Determine if XNOR or XOR
