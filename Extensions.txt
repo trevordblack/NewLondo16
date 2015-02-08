@@ -1,2 +1,40 @@
-Floating Point
+floating point arithmetic
+double prec fp arithmetic
+arbitrary prec fp arithmetic
+32 bit load hex
+arbitrary bit load hex
+64 bit instructions
+repetitive ops (e.g. do next op x times moving sp n each time)
+vector operations
+change conditional from lez to ez, gez, nez, etc.
+additionally an op could be sent to "turn on" and "turn off" a specific functional unit
+  Such as the decode unit to begin CISC style instructions, or vector, or fp, etc.
+  Allowing for asm portability (but not binary portability) between CPUs of different complexity
+  This also enables very reduced power consumption, as decode is single stage for D-RISC
+  
+  
+First Extension:
+  Floating Point and Load
+    load 16
+    load 32
+    fp load 16 
+    fp load 32
+    fp unit
+    fp arithmetic
+
+Second Extension:
+  Change Conditional Check
+
+Third Extension:
+  Repetitive ops
+  
+Fourth Extension:
+  Turn off functional units for power
+  
+Fifth Extension:
+  Ramp up bit precision
+  Ramp down bit precision
+  
+Sixth Extenstion:
+  Vector Ops
   
