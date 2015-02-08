@@ -1,6 +1,3 @@
-RSVD
-  m-000-XXXX-XXXX-000X
-
 For all command syntax:
   uppercase and lowercase are accepted everywhere, consistency in command
     LOAD R01 0xFF
@@ -231,6 +228,12 @@ XNOR
   Binary:
     m-000-cccc-aaaa-1111
     
+RSVD
+  Descriptor:
+    These binaries are reserved
+  Binary:
+    m-000-XXXX-XXXX-000X
+
 SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
 
 load 16 bit:
