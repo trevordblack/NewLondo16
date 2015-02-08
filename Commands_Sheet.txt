@@ -4,8 +4,8 @@ Operations Include:
   loadHex
   3add
   3sub
-  circularShiftLeft
-  circularShiftRight
+  arithmeticShiftLeft
+  arithmeticShiftRight
   readFromMemory
   writeToMemory
   2unsignedAdd
@@ -27,9 +27,9 @@ loadHex
   m-010-cccc-aaaa-bbbb
 3sub
   m-011-cccc-aaaa-bbbb
-circularShiftLeft
+arithmeticShiftLeft
   m-100-cccc-aaaa-hhhh
-circularShiftRight
+arithmeticShiftRight
   m-101-cccc-aaaa-hhhh
 readFromMemory
   m-110-cccc-aaaa-hhhh

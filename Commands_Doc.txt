@@ -1,16 +1,3 @@
-Operations Include:
-  loadHex
-  3add
-  3sub
-  circularShiftLeft
-  circularShiftRight
-  readFromMemory
-  writeToMemory
-  2unsignedAdd
-  2unsignedSub
-  2multiply
-  2divide
-  move
   2OR
   2OR1NOT
   2AND
@@ -19,30 +6,6 @@ Operations Include:
   2XNOR
   RSVD
   
-loadHex
-  m-001-cccc-hhhh-hhhh
-3add
-  m-010-cccc-aaaa-bbbb
-3sub
-  m-011-cccc-aaaa-bbbb
-circularShiftLeft
-  m-100-cccc-aaaa-hhhh
-circularShiftRight
-  m-101-cccc-aaaa-hhhh
-readFromMemory
-  m-110-cccc-aaaa-hhhh
-writeToMemory
-  m-111-cccc-aaaa-hhhh
-2unsignedAdd
-  m-000-cccc-aaaa-0010
-2unsignedSub
-  m-000-cccc-aaaa-0011
-2multiply
-  m-000-cccc-aaaa-010s
-2divide
-  m-000-cccc-aaaa-011s
-move
-  m-000-cccc-aaaa-100u
 2OR
   m-000-cccc-aaaa-1010
 2OR1NOT
@@ -63,19 +26,21 @@ For all command syntax:
     LOAD R01 0xFF
     load r01 0xff
 
-Native Commands:
+NATIVE COMMANDS: ---------------------------------------------------------------------------------------
 
 load 8 bit
   Descriptor:
-    Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, dne all other bits (b31:b8)
+    Load an 8 bit value into a Register. Sets smallest byte (b7:b0) to hex, zeros all other bits (b31:b8)
   Math Formula:
-    C = 0xFF 
+    C = h 
   Syntax:
     load c 0xFF
   Syntaxes Supported:
     load c 0xFF
     load c 255
     load c 11111111b
+  Binary:
+    m-001-cccc-hhhh-hhhh
     
 Signed Addition with 3 operators
   Descriptor:
@@ -84,6 +49,8 @@ Signed Addition with 3 operators
     C = A + B
   Syntax:
     add c a b
+  Binary:
+    m-010-cccc-aaaa-bbbb
 
 Signed Subtraction with 3 operators
   Descriptor:
@@ -92,10 +59,155 @@ Signed Subtraction with 3 operators
     C = A - B
   Syntax:
     sub c a b
-
-Circular Shift Left 
+  Binary:
+    m-011-cccc-aaaa-bbbb
     
-Synthesized Commands:
+Arithmetic Shift Left
+  Descriptor:
+    Arithmetically shift a register value to the left. 
+    Amount to shift is determined by a hex value and a second register value.
+    When second register value is 0, shift the amount of hex value + 1, this enables 16 bit shift in a single command.
+    when register value is not 0, shift the sum of register value and hex value 
+  Math Formula:
+    AMT = (A==0) ? (h+1) : (h+A)
+    C = C << AMT
+  Syntax:
+    asl c a 0xF
+  Binary:
+    m-100-cccc-aaaa-hhhh
+
+Arithmetic Shift Right
+  Descriptor:
+    Arithmetically shift a register value to the right. 
+    Amount to shift is determined by a hex value and a second register value.
+    When second register value is 0, shift the amount of hex value + 1, this enables 16 bit shift in a single command.
+    when register value is not 0, shift the sum of register value and hex value   
+  Math Formula:
+    AMT = (A==0) ? (h+1) : (h+A)
+    C = ( C[31:AMT] ) | ( C >> AMT )
+  Syntax:
+    asr c a 0xF  
+  Binary:
+    m-101-cccc-aaaa-hhhh
+
+Read from Memory
+  Descriptor:
+    Read value from memory address to register with the passed hex offset. By convention, A is the sp
+  Math Formula:
+    C = M[A + h]
+  Syntax:
+    read C M[A] h
+  Binary:
+    m-110-cccc-aaaa-hhhh  
+
+Write to Memory
+  Descriptor:
+    Write a register value to a memory address with the passed hex offset. By convention, A is the sp
+  Math Formula:
+    M[A + h] = C
+  Syntax:
+    write C M[A] h
+  Binary:
+    m-111-cccc-aaaa-hhhh
+
+Unsigned Addition with 2 operators
+  Descriptor:
+    Set a register to the unsigned sum of that register and another register
+  Math Formula:
+    C = C + A
+  Syntax:
+    uadd c a
+  Binary:
+    m-000-cccc-aaaa-0010
+
+Unsigned Subtraction with 2 operators
+  Descriptor:
+    Set a register to the unsigned difference of that register and another register
+  Math Formula:
+    C = C - A
+  Syntax:
+    usub c a
+  Binary:
+    m-000-cccc-aaaa-0011
+
+Signed Multiplication with 2 operators
+  Descriptor:
+    Set a register to the signed multiplication of that register and another register
+  Math Formula:
+    C = C * A
+  Syntax:
+    mult c a
+  Binary:
+    m-000-cccc-aaaa-0100    
+
+Unsigned Multiplication with 2 operators
+  Descriptor:
+    Set a register to the unsigned multiplication of that register and another register
+  Math Formula:
+    C = C * A
+  Syntax:
+    umult c a
+  Binary:
+    m-000-cccc-aaaa-0101
+
+Signed Division with 2 operators
+  Descriptor:
+    Set a register to the signed division of that register and another register
+  Math Formula:
+    C = C / A
+  Syntax:
+    div c a
+  Binary:
+    m-000-cccc-aaaa-0110    
+
+Unsigned Division with 2 operators
+  Descriptor:
+    Set a register to the unsigned division of that register and another register
+  Math Formula:
+    C = C / A
+  Syntax:
+    udiv c a
+  Binary:
+    m-000-cccc-aaaa-0111
+
+Move
+  Descriptor:
+    Sets all 32 bits of a register to the 32 bit value of another register
+  Math Formula:
+    C = A
+  Syntax
+    move C A
+  Binary:
+    m-000-cccc-aaaa-1000
+    
+Upper Move
+  Descriptor:
+    Zeros out bottom 16 bits and sets the top 16 bits of one register to the bottom 16 bit value of another register.
+    Functions as a very fast shift to the left 16. Should always be chosen over asl 16
+  Math Formula:
+    C = A << 16
+  Syntax
+    uppermove C A
+  Binary:
+    m-000-cccc-aaaa-1001
+   
+SYNTHESIZED COMMANDS: ----------------------------------------------------------------------------
+
+load 16 bit:
+  Descriptor:
+    Loads a 16 bit value into a Register. Zeros top two bytes. Sets bytes to hex in big-endian fashion
+  Real Math Formula:
+    C = 0x0000_1234
+  Synthesized Math Formula:
+    C = 0x12
+    C = C << 8
+    A = 0x34
+    C = C|A
+  Synthesis:
+    load C 0x12
+    load A 0x34
+    asl C B 0x7 #Where B equals 0, asl C B 8
+    or C A
 
 load 32 bit
   Descriptor:
@@ -103,24 +215,36 @@ load 32 bit
   Real Math Formula:
     C = 0x1234_CDEF
   Synthesized Math Formula:
-    C = 0x12
-    C = C << 2
-    B = 
-  Synthesis (0):
-    load c 0x12
-    csl 
     
-Arithmetic Shift Left
+  Synthesis:
+    
+Logical Shift Left
   Descriptor:
-    Arithmetically shift a register to the left
+    Logically shift a register to the left, functionally identical to arithmetic shift left
   Real Math Formula:
-    C = C << A
+    C = C[30:0], 0
+  Synthesized Math Formula:
+    C = C[30:0], 0
+  Synthesis:
+    asl c a 0xF
+    
+Logical Shift Right
+ Descriptor:
+    Logically shift a register to the right, placing zeros into the left-most bits
+  Real Math Formula:
+    C = C[31-AMT:AMT]
   Synthesized Math Formula:
     
-  Synthesis (0):
-    HOLY SHIT THIS IS COMPLICATED
-  
-Redundant Commands:
+  Synthesis:  
+
+
+Jump Forward
+
+Jump Backward
+
+Conditional Branch
+
+REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
 
 
