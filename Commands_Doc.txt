@@ -277,7 +277,9 @@ load 32 bit
     uppermove C C
     load A 0xCD
     asl A D 0x7
-    
+    load B 0xEF
+    or B A
+    or C B
   Synthesized Math Formula (1):    
     C = 0x12
     C = C << 8
@@ -289,7 +291,6 @@ load 32 bit
     C = C << 8
     A = 0xEF
     C = C|A    
-
     
 Logical Shift Left
   Descriptor:
