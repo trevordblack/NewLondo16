@@ -344,7 +344,7 @@ Jump Backward
   
 Conditional Less than or Equal to Zero Branch
   Descriptor:
-    Conditional Branch Forward if r14 <= 0
+    Conditional Branch Forward if r14 == 0
     Set hex to jump amount from move with offset of -1
     the PC will push forward by two bytes at the end of the op. Offset hex by -1
   Synthesis:
