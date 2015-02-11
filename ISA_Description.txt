@@ -13,7 +13,7 @@ Registers set by hardware:
 Registers set by both:
   Register 14 is the conditional operation register
     Whenever an operation is conditionally called:
-    Register 14 is checked for a "less than or equal to zero" condition
+    Register 14 is checked for a "equal to zero" condition
     For code with no conditional operations, R14 can be used as a general purpose Register
 
 Command Syntax as determined for 16 bits:
