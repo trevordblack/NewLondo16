@@ -4,3 +4,5 @@
   b. slowArith_cntl is slowArithmetic
   c. memory_cntl is memory
   d. move_cntl is move
+  e. logic_cntl is logic
+  f. arith_cntl is arithmetic
