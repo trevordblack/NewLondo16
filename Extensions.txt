@@ -35,6 +35,8 @@ Fifth Extension:
   Ramp up bit precision
   Ramp down bit precision
   
-Sixth Extenstion:
+M-th Extenstion:
   Vector Ops
   
+N-th Extension:
+  Load 4 Hardware-compressed instructions, run all 4 in parallel
