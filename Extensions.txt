@@ -12,6 +12,10 @@ additionally an op could be sent to "turn on" and "turn off" a specific function
   Allowing for asm portability (but not binary portability) between CPUs of different complexity
   This also enables very reduced power consumption, as decode is single stage for D-RISC
   
+A lot of this functionality will be implemented as follows:
+  1. Call a RSVD function
+    a. Function acts as a cue that the system is about to manipulated
+  2. Write to an ISA internal register, where everything is represents as memory
   
 First Extension:
   Floating Point and Load
