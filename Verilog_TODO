@@ -1,8 +1,0 @@
-1. Figure out how to "skip" ops where conditional is not met
-2. Enables:
-  a. opndB is top_op
-  b. slowArith_cntl is slowArithmetic
-  c. memory_cntl is memory
-  d. move_cntl is move
-  e. logic_cntl is logic
-  f. arith_cntl is arithmetic
