@@ -177,7 +177,7 @@ Upper Move
   Math Formula:
     C = A << 16
   Syntax
-    uppermove C A
+    uppermove c a
   Binary:
     m-000-cccc-aaaa-1001
 
@@ -187,7 +187,7 @@ OR
   Math Formula:
     C = C | A
   Syntax
-    or C A
+    or c a
   Binary:
     m-000-cccc-aaaa-1010
 
@@ -197,7 +197,7 @@ OR with 1 NOT
   MAth Formula:
     C = C | (~A)
   Syntax
-    ornot C A
+    ornot c a
   Binary:
     m-000-cccc-aaaa-1011
 
@@ -207,7 +207,7 @@ AND
   Math Formula:
     C = C & A
   Syntax
-    and C A
+    and c a
   Binary:
     m-000-cccc-aaaa-1100
 
@@ -217,17 +217,17 @@ AND with 1 NOT
   Math Formula:
     C = C & (~A)
   Syntax
-    andnot C A
+    andnot c a
   Binary:
     m-000-cccc-aaaa-1101
 
 NOT
   Descriptor: 
-    Returns the bitwise NOT a register value
+    Returns the bitwise NOT of a register value
   Math Formula:
     C = ~A
   Syntax
-    not C A
+    not c a
   Binary:
     m-000-cccc-aaaa-1110
   
@@ -237,7 +237,7 @@ XNOR
   Math Formula
     C = ~(C^A)
   Syntax
-    xnor C A
+    xnor c a
   Binary:
     m-000-cccc-aaaa-1111
     
@@ -261,8 +261,8 @@ load 16 bit:
     C = C|A
   Synthesis:
     load C 0x12
-    load A 0x34
     asl C B 0x7 #Where B equals 0, asl C B 8
+    load A 0x34
     or C A
 
 load 32 bit

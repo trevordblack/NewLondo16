@@ -44,7 +44,9 @@ writeToMemory
 2divide
   m-000-cccc-aaaa-011s
 move
-  m-000-cccc-aaaa-100u
+  m-000-cccc-aaaa-1000
+uppermove
+  m-000-cccc-aaaa-1001
 2OR
   m-000-cccc-aaaa-1010
 2OR1NOT
