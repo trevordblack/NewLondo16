@@ -3,6 +3,7 @@ For all command syntax:
     LOAD R01 H_FF
     load r01 h_ff
   underscores are neglected
+  cond at the start of command sets to a conditional command, will then check r14 for condition
 
 NATIVE COMMANDS: ---------------------------------------------------------------------------------------
 
@@ -254,44 +255,54 @@ load 16 bit:
     Loads a 16 bit value into a Register. Zeros top two bytes. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x0000_1234
+  Syntax:
+    load16 c h_FFFF
+  Supported Syntax:
+    load16 c h_FFFF
+    load16 c 32000
   Synthesized Math Formula:
     C = 0x12
     C = C << 8
     A = 0x34
     C = C|A
   Synthesis:
-    load C 0x12
-    asl C B 0x7 #Where B equals 0, asl C B 8
-    load A 0x34
-    or C A
+    load c h_12
+    asl c b h_7 #Where B equals 0, asl C B 8
+    load a h_34
+    or c a
 
 load 32 bit
   Descriptor:
     Loads a 32 bit value into a Register. Sets bytes to hex in big-endian fashion
   Real Math Formula:
     C = 0x1234_CDEF
+  Syntax:
+    load32 c h_FFFF_FFFF
+  Supported Syntax:
+    load32 c h_FFFF_FFFF
+    load32 c 4000000000
   Synthesized Math Formula (0):
     C = 0x12
-    A = 0x34
     C = C << 8
+    A = 0x34
     C = C|A
-    C = C << 16
     A = 0xCD
+    C = C << 16
     A = A << 8
     B = 0xEF
     B = B|A
     C = C|B
   Synthesis (0):
-    load C 0x12
-    load A 0x34
-    asl C D 0x7 #Where D equals 0, asl C B 8
-    or C A
-    uppermove C C
-    load A 0xCD
-    asl A D 0x7
-    load B 0xEF
-    or B A
-    or C B
+    load c h_12
+    asl c d h_7 #Where D equals 0, asl C B 8
+    load a h_34
+    or c a
+    load a h_CD
+    uppermove c c
+    asl a d h_7
+    load b h_EF
+    or b a
+    or c b
   Synthesized Math Formula (1):    
     C = 0x12
     C = C << 8
@@ -308,20 +319,33 @@ Logical Shift Left
   Descriptor:
     Logically shift a register to the left, functionally identical to arithmetic shift left
   Real Math Formula:
-    C = C[30:0], 0
+    C = { C[31-AMT:0], AMT{0} }
   Synthesized Math Formula:
-    C = C[30:0], 0
+    C = { C[31-AMT:0], AMT{0} }
+  Syntax:
+    lsl c a h_F
+  Syntaxes Supported:
+    lsl c a h_F
+    lsl c a 16
   Synthesis:
     asl c a 0xF
     
 Logical Shift Right
  Descriptor:
     Logically shift a register to the right, placing zeros into the left-most bits
+    Even if you have to move heaven and earth, DO NOT USE THIS COMMAND
+    Due to the structure of NL16, this instruction is extremely painful, avoid at all costs
   Real Math Formula:
-    C = C[31-AMT:AMT]
+    C = { AMT{0} , C[31-AMT:AMT] }
   Synthesized Math Formula:
-    
+     C = { AMT{0} , C[31-AMT:AMT] } 
+  Syntax:
+    asr c a h_F
+  Syntaxes Supported:
+    asr c a h_F
+    asr c a 16    
   Synthesis:  
+    A big, disgusting, fucking mess
 
 XOR
   Descriptor:
@@ -332,36 +356,49 @@ XOR
     C = ~(C^A)
     C = ~C
   Synthesis:
-    xnor C A
-    not C C
+    xnor c a
+    not c c
 
 Jump Forward
   Descriptor:
     unconditional jump forward
     Set hex to jump amount from uadd with offset of -1
     the PC will push forward by two bytes at the end of the op. Offset hex by -1
-    
+  Syntax:  
+    jmp h_1234_CDEF
+  Supported Syntax:
+    jmp h_1234_CDEF
+    jmp 305450479
   Synthesis:
-    load32 A 0x1234_CDEF
-    uadd r15 A
+    load32 a h_1234_CDEF
+    uadd r15 a
 
 Jump Backward
   Descriptor:
     unconditional jump backward
-    Set hex to jump amount from uadd with offset of -1
+    Set hex to jump amount from usub with offset of 1
     the PC will push forward by two bytes at the end of the op. Offset hex by -1
+  Syntax:  
+    jmp h_1234_CDEF
+  Supported Syntax:
+    jmp h_1234_CDEF
+    jmp -305450479
   Synthesis:
-    load32 A 0x1234_CDEF
-    usub r15 A
+    load32 a 0x1234_CDEF
+    usub r15 a
   
-Conditional Less than or Equal to Zero Branch
+Conditional Equal to Zero Branch
   Descriptor:
     Conditional Branch Forward if r14 == 0
     Set hex to jump amount from move with offset of -1
     the PC will push forward by two bytes at the end of the op. Offset hex by -1
+  Syntax:
+    brn h_1234_CDEF
+  Supported Syntax:
+    brn h_1234_CDEF
   Synthesis:
-    load32 A 0x1234_CDEF
-    cond_move C A
+    load32 a 0x1234_CDEF
+    cond_move r15 a
 
 REDUNDANT COMMANDS: -------------------------------------------------------------------------------------
 
