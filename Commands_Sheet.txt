@@ -13,6 +13,7 @@ Operations Include:
   2multiply
   2divide
   move
+  uppermove
   2OR
   2OR1NOT
   2AND
