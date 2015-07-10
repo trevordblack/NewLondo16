@@ -1,7 +1,7 @@
 For all command syntax:
   uppercase and lowercase are accepted everywhere, consistency in command
-    LOAD R01 0xFF
-    load r01 0xff
+    LOAD R01 H_FF
+    load r01 h_ff
   underscores are neglected
 
 NATIVE COMMANDS: ---------------------------------------------------------------------------------------
@@ -12,11 +12,11 @@ load 8 bit
   Math Formula:
     C = h 
   Syntax:
-    load c 0xFF
+    load c h_FF
   Syntaxes Supported:
-    load c 0xFF
+    load c h_FF
     load c 255
-    load c 11111111b
+    load c b_11111111
   Binary:
     m-001-cccc-hhhh-hhhh
     
@@ -50,7 +50,10 @@ Arithmetic Shift Left
     AMT = (A==0) ? (h+1) : (h+A)
     C = C << AMT
   Syntax:
-    asl c a 0xF
+    asl c a h_F
+  Syntaxes Supported:
+    asl c a h_F
+    asl c a 16
   Binary:
     m-100-cccc-aaaa-hhhh
 
@@ -64,17 +67,23 @@ Arithmetic Shift Right
     AMT = (A==0) ? (h+1) : (h+A)
     C = ( C[31:AMT] ) | ( C >> AMT )
   Syntax:
-    asr c a 0xF  
+    asr c a h_F
+  Syntaxes Supported:
+    asr c a h_F
+    asl c a 16
   Binary:
     m-101-cccc-aaaa-hhhh
 
 Read from Memory
   Descriptor:
-    Read value from memory address to register with the passed hex offset. By convention, A is the sp
+    Read value from memory address to register with the passed hex offset (unsigned). By convention, a is the sp
   Math Formula:
     C = M[A + h]
   Syntax:
-    read C M[A] h
+    read c M[a] h_F
+  Syntaxes Supported:
+    read c M[a] h_F
+    read c M[a] 15
   Binary:
     m-110-cccc-aaaa-hhhh  
 
@@ -84,7 +93,10 @@ Write to Memory
   Math Formula:
     M[A + h] = C
   Syntax:
-    write C M[A] h
+    write c M[a] h_F
+  Syntaxes Supported:
+    write c M[a] h_F
+    write c M[a] 15
   Binary:
     m-111-cccc-aaaa-hhhh
 
@@ -154,7 +166,7 @@ Move
   Math Formula:
     C = A
   Syntax
-    move C A
+    move c a
   Binary:
     m-000-cccc-aaaa-1000
     
