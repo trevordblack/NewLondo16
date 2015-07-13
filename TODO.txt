@@ -1,0 +1,7 @@
+HARDWARE DESCRIPTION LANGUAGE CHANGES: -----------------------------------
+Build 0:
+	1. All of the HDL
+
+ISA CHANGES: -------------------------------------------------------------
+	1. For shifting, is it a good idea to +1 to the hex when a = 0?
+    2. Create a RSVD function call for all blocks
