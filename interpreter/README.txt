@@ -15,3 +15,7 @@ The order of optimizations
 3) Interpret synthesized commands into NL16 syntax
   This pass natively interprets synthesized commands (e.g. load32) into hexidecimal syntax only
 
+4) Analyse constructed binary
+  This pass will provide statistics
+  Most notably, this pass will produce a Huffman table
+  The intent is to produce a finalized, set-in-HW table for Huffman compression
