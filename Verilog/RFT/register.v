@@ -12,3 +12,5 @@ module register(D, hold_D, CLK, EN, Reset, Q, hold_Q);
 	FF   hold  (hold_D, gated_clk, Reset, hold_Q);
 
 endmodule
+
+// #TODO Solve for register reads on rising, writes on falling edges
