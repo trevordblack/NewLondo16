@@ -62,7 +62,7 @@ module reg_read_arbitration (
 
 	assign flags = {opnd1_held&is_opnd1, opnd2_held&is_opnd2 };
 
-	assign value_opnd1 <= (is_opnd1 == 1'b0) ? 32'bZ : (
+	assign value_opnd1 = (is_opnd1 == 1'b0) ? 32'bZ : (
 		(get_opnd1 == 4'h0) ? r00_Q :
 		(get_opnd1 == 4'h1) ? r01_Q :			
 		(get_opnd1 == 4'h2) ? r02_Q :
@@ -79,7 +79,7 @@ module reg_read_arbitration (
 		(get_opnd1 == 4'hD) ? r13_Q :
 		(get_opnd1 == 4'hE) ? r14_Q : r15_Q );
 
-	assign value_opnd2 <= (is_opnd2 == 1'b0) ? 32'bZ : (
+	assign value_opnd2 = (is_opnd2 == 1'b0) ? 32'bZ : (
 		(get_opnd2 == 4'h0) ? r00_Q :			
 		(get_opnd2 == 4'h1) ? r01_Q :
 		(get_opnd2 == 4'h2) ? r02_Q :
